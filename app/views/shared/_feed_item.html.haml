@@ -1,0 +1,11 @@
+.row
+  .span12.columns
+    .row
+      .span1.columns
+        .gravatar= link_to gravatar_for(feed_item.user), feed_item.user
+      .span10.columns
+        .user= link_to feed_item.user.name, feed_item.user
+        .content= feed_item.content
+        .timestamp= "Posted #{time_ago_in_words(feed_item.created_at)} ago."
+      - if current_user?(feed_item.user)
+        .span1.column.delete= link_to "delete", feed_item, :method => :delete, :confirm => "You sure?", :title => feed_item.content

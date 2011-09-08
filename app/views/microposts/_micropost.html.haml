@@ -1,0 +1,7 @@
+.row.micropost
+  .span11.columns
+    .content= micropost.content
+    .timestamp
+      = "Posted #{time_ago_in_words(micropost.created_at)} ago."
+  - if current_user?(micropost.user)
+    .span1.column.delete= link_to "delete", micropost, :method => :delete, :confirm => "You sure?", :title => micropost.content

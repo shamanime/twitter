@@ -18,6 +18,8 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
+    @microposts = @user.microposts.page params[:page]
+    @title = @user.name
 
     respond_to do |format|
       format.html # show.html.erb
@@ -91,11 +93,7 @@ class UsersController < ApplicationController
     end
   end
   
-  private
-    def authenticate
-      deny_access unless signed_in?
-    end
-    
+  private  
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_path) unless current_user?(@user)

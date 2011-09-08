@@ -1,8 +1,18 @@
-.row
-  .span16.columns
-    %h1 Sample App
-    %p
-      This is the home page for the
-      %a{:href => "http://railstutorial.org/"} Ruby on Rails Tutorial
-      sample application.
-    = link_to "Sign up now!", signup_path, :class => "btn large primary"
+- if signed_in?
+  .row
+    .span12.columns
+      %h1 What's up?
+      = render 'shared/micropost_form'
+      = render 'shared/feed'
+    .span4.columns
+      = render 'shared/user_info'
+
+- else
+  .row
+    .span16.columns
+      %h1 Sample App
+      %p
+        This is the home page for the
+        %a{:href => "http://railstutorial.org/"} Ruby on Rails Tutorial
+        sample application.
+      = link_to "Sign up now!", signup_path, :class => "btn large primary"

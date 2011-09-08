@@ -1,0 +1,12 @@
+= form_for @micropost do |f|
+  -if @micropost.errors.any?
+    .alert-message.block-message.error
+      %p
+        %strong= "#{pluralize(@micropost.errors.count, "error")} prohibited this micropost from being saved:"
+      %p
+        %ol
+          - @micropost.errors.full_messages.each do |msg|
+            %li= msg
+  .clearfix
+    .field=f.text_area :content, :class => "xxlarge", :rows => 5
+  = f.submit "Submit", :class => 'btn small'

@@ -1,0 +1,3 @@
+- unless @feed_items.empty?
+  = render :partial => 'shared/feed_item', :collection => @feed_items
+  = paginate @feed_items

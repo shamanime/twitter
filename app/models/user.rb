@@ -16,7 +16,7 @@ class User
   field :salt, :type => String
   field :admin, :type => Boolean, :default => false
   
-  has_many :microposts
+  has_many :microposts, :dependent => :destroy
   
   attr_accessor :password
   attr_accessible :name, :email, :password, :password_confirmation
@@ -53,6 +53,10 @@ class User
   end
                   
   before_save :encrypt_password
+  
+  def feed
+    microposts
+  end
 
   private
     def encrypt_password

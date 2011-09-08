@@ -30,3 +30,15 @@ ul.users {
 .users li {
   list-style: none;
 }
+
+.timestamp	{
+	font-size: 10px;
+}
+
+.span1.column.delete	{
+	text-align: right;
+}
+
+form#new_micropost	{
+	margin-bottom: 50px;
+}
