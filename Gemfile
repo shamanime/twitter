@@ -18,6 +18,7 @@ end
 
 gem 'jquery-rails'
 gem 'haml-rails'
+gem 'gravtastic', '~> 3.2.6'
 
 # Use unicorn as the web server
 # gem 'unicorn'

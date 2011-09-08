@@ -17,8 +17,11 @@
           %ul.nav.secondary-nav
             %li= link_to "Sign in", "#"
     #page
-      .container
-        = yield
+      .container-fluid
+        .sidebar
+          = yield :sidebar
+        .content
+          = yield
     .container
       .row
         .span16.columns
