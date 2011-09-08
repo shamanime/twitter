@@ -1,21 +1,11 @@
-%h1 Listing users
-
-%table
-  %tr
-    %th Name
-    %th Email
-    %th
-    %th
-    %th
-
-  - @users.each do |user|
-    %tr
-      %td= user.name
-      %td= user.email
-      %td= link_to 'Show', user
-      %td= link_to 'Edit', edit_user_path(user)
-      %td= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete
-
-%br
-
-= link_to 'New User', new_user_path
+%h1 All users
+.row
+  .span16.columns
+    = paginate @users
+.row
+  .span16.columns
+    %ul.users
+      = render @users
+.row
+  .span16.columns
+    = paginate @users

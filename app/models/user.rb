@@ -7,11 +7,14 @@ class User
   include Gravtastic
   is_gravtastic
   
+  paginates_per 15
+  
   field :name, :type => String
   field :email, :type => String
   index :email, unique: true
   field :encrypted_password, :type => String
   field :salt, :type => String
+  field :admin, :type => Boolean, :default => false
   
   has_many :microposts
   
@@ -26,8 +29,8 @@ class User
                     :format     => { :with => email_regex },
                     :uniqueness => { :case_sensitive => false }
   # Automatically create the virtual attribute 'password_confirmation'.
-  validates :password, :presence     => true,
-                       :confirmation => true,
+  validates :password, :presence     => true, :on => :create,
+                       :confirmation => true, :on => :create,
                        :length       => { :within => 6..40 }
 
   def has_password?(submitted_password)
@@ -45,7 +48,7 @@ class User
   end
   
   def self.authenticate_with_salt(id, cookie_salt)
-    user = User.where(id: id).first
+    user = id.present? ? User.find(id) : nil
     (user && user.salt == cookie_salt) ? user : nil
   end
                   

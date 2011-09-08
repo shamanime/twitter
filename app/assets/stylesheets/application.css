@@ -18,3 +18,15 @@ form .alert-message.block-message.error	{
 form .alert-message.block-message.error ol	{
 	margin-bottom: 0;
 }
+
+.gravatar_thumb	{
+	position: absolute;
+}
+
+ul.users {
+  margin-top: 1em;
+}
+
+.users li {
+  list-style: none;
+}

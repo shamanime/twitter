@@ -1,8 +1,12 @@
 class UsersController < ApplicationController
+  before_filter :authenticate, :only => [:edit, :update]
+  before_filter :correct_user, :only => [:edit, :update]
+  before_filter :admin_user,   :only => :destroy
+  
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.all.page params[:page]
 
     respond_to do |format|
       format.html # index.html.erb
@@ -35,7 +39,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
+    @title = "Edit user"
   end
 
   # POST /users
@@ -63,9 +67,10 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to @user, :flash => { :success =>  'User was successfully updated.' } }
+        format.html { redirect_to @user, :flash => { :success =>  'Profile updated.' } }
         format.json { head :ok }
       else
+        @title = "Edit user"
         format.html { render action: "edit" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
@@ -79,8 +84,22 @@ class UsersController < ApplicationController
     @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to users_url }
+      format.html { redirect_to users_url, :flash => { :success => "User destroyed." } }
       format.json { head :ok }
     end
   end
+  
+  private
+    def authenticate
+      deny_access unless signed_in?
+    end
+    
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_path) unless current_user?(@user)
+    end
+    
+    def admin_user
+      redirect_to(root_path) unless current_user.admin?
+    end
 end

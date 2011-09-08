@@ -19,6 +19,13 @@ end
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'gravtastic', '~> 3.2.6'
+gem "kaminari", "~> 0.12.4"
+
+group :development do
+  #gem 'rspec-rails', '2.6.1'
+  #gem 'annotate', '2.4.0'
+  gem 'faker'
+end
 
 # Use unicorn as the web server
 # gem 'unicorn'

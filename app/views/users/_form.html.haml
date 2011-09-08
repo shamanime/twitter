@@ -11,6 +11,10 @@
                 %li= msg
       %fieldset
         %legend= @title
+        - unless @user.new_record?
+          .span3.offset12.gravatar_thumb
+            %h6 User gravatar:
+            = gravatar_for @user, :size => 115
         .clearfix
           = f.label :name
           .input= f.text_field :name
@@ -24,6 +28,4 @@
           = f.label :"Pass confirmation"
           .input= f.text_field :password_confirmation
         .actions
-          = f.submit "Sign Up", :class => "btn primary"
-          Already have an account?
-          = link_to "Sign in!", signin_path
+          = f.submit :class => "btn primary"
