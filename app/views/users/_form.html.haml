@@ -24,4 +24,6 @@
           = f.label :"Pass confirmation"
           .input= f.text_field :password_confirmation
         .actions
-          = f.submit "Sign Up", :class => "btn primary large"
+          = f.submit "Sign Up", :class => "btn primary"
+          Already have an account?
+          = link_to "Sign in!", signin_path

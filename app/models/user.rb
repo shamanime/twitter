@@ -9,6 +9,7 @@ class User
   
   field :name, :type => String
   field :email, :type => String
+  index :email, unique: true
   field :encrypted_password, :type => String
   field :salt, :type => String
   
@@ -39,8 +40,13 @@ class User
   #  return user if user.has_password?(submitted_password)
   #end
   def self.authenticate(email, submitted_password)
-    user = find_by_email(email)
+    user = User.where(email: email).first
     user && user.has_password?(submitted_password) ? user : nil
+  end
+  
+  def self.authenticate_with_salt(id, cookie_salt)
+    user = User.where(id: id).first
+    (user && user.salt == cookie_salt) ? user : nil
   end
                   
   before_save :encrypt_password
