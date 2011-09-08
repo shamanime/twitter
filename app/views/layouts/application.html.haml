@@ -19,3 +19,7 @@
     #page
       .container
         = yield
+    .container
+      .row
+        .span16.columns
+          = debug(params) if Rails.env.development?
