@@ -1,10 +1,12 @@
-%h1
-  = gravatar_for @user
-  = @user.name
-- content_for :sidebar do
-  %p
-    %strong Name:
-    = @user.name
-  %p
-    %strong URL:
-    = link_to user_path(@user), @user
+.row
+  .span12.columns
+    %h1
+      = gravatar_for @user
+      = @user.name
+  .span4.columns
+    %p
+      %strong Name:
+      = @user.name
+    %p
+      %strong URL:
+      = link_to user_path(@user), @user

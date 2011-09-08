@@ -45,9 +45,10 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to @user, :flash => { :success =>  'Welcome to the Compweek App!' } }
         format.json { render json: @user, status: :created, location: @user }
       else
+        @title = "Sign up"
         format.html { render action: "new" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
@@ -61,7 +62,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to @user, :flash => { :success =>  'User was successfully updated.' } }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

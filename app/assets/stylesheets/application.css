@@ -9,3 +9,12 @@
 #page	{
 	padding-top: 60px;
 }
+
+form .alert-message.block-message.error	{
+	margin-top: 10px;
+	padding: 14px;
+}
+
+form .alert-message.block-message.error ol	{
+	margin-bottom: 0;
+}

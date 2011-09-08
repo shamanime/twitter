@@ -17,11 +17,15 @@
           %ul.nav.secondary-nav
             %li= link_to "Sign in", "#"
     #page
-      .container-fluid
-        .sidebar
-          = yield :sidebar
-        .content
-          = yield
+      .container
+        - if flash
+          - flash.each do |name, msg| 
+            .alert-message{:class => name}
+              = link_to "×", "#", :class => "close"
+              %p
+                %strong Hey!
+                = msg
+        = yield
     .container
       .row
         .span16.columns
