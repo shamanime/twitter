@@ -45,7 +45,7 @@ class User
   end
   
   def has_password?(submitted_password)
-   encrypted_password == encrypt(submitted_password)
+    encrypted_password == encrypt(submitted_password)
   end
   
   def feed
