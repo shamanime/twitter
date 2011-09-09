@@ -60,8 +60,9 @@ class User
   end
   
 #######################################################################################################
-  def following_count
-    following.count
+  def self.following_count(user)
+    user = find(user.id)
+    user.following.count
   end
 
   def followers_count

@@ -5,15 +5,17 @@
       %ul.users= render @users
       = paginate @users
   .span4.columns
-    %strong Name:
-    = @user.name
-    %br/
-    %strong URL:
-    = link_to user_path(@user), @user
-    %br/
-    %strong Microposts:
-    = @user.microposts.count
-    = render 'shared/stats'
-    - unless @users.empty?
-      - @users.each do |user|
-        = link_to gravatar_for(user, :size => 30), user
+    .well
+      %p
+        %strong Name:
+        = @user.name
+      %p
+        %strong URL:
+        = link_to user_path(@user), @user
+      %p
+        %strong Microposts:
+        = @user.microposts.count
+      = render 'shared/stats'
+      - unless @users.empty?
+        - @users.each do |user|
+          = link_to gravatar_for(user, :size => 30), user

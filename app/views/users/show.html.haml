@@ -14,12 +14,13 @@
       = paginate @microposts
   .span4.columns
     .well
-      %strong Name:
-      = @user.name
-      %br/
-      %strong URL:
-      = link_to user_path(@user), @user
-      %br/
-      %strong Microposts:
-      = @user.microposts.count
+      %p
+        %strong Name:
+        = @user.name
+      %p
+        %strong URL:
+        = link_to user_path(@user), @user
+      %p
+        %strong Microposts:
+        = @user.microposts.count
       = render 'shared/stats'
