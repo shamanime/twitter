@@ -2,8 +2,6 @@ class MicropostsController < ApplicationController
   before_filter :authenticate, :only => [:create, :destroy]
   before_filter :authorized_user, :only => :destroy
   
-  # POST /microposts
-  # POST /microposts.json
   def create
     @micropost  = current_user.microposts.build(params[:micropost])
     if @micropost.save
@@ -15,8 +13,6 @@ class MicropostsController < ApplicationController
     end
   end
 
-  # DELETE /microposts/1
-  # DELETE /microposts/1.json
   def destroy
     @micropost.destroy
     flash[:success] = "Micropost destroyed."

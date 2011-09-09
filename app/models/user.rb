@@ -14,9 +14,6 @@ class User
   field :salt, :type => String
   field :admin, :type => Boolean, :default => false
   
-  field :following, :type => Array, :default => []
-  index :following
-  
   has_many :microposts, :dependent => :destroy
   
   attr_accessor :password
@@ -29,20 +26,14 @@ class User
   validates :email, :presence   => true,
                     :format     => { :with => email_regex },
                     :uniqueness => { :case_sensitive => false }
+  
   # Automatically create the virtual attribute 'password_confirmation'.
   validates :password, :presence     => true, :on => :create,
                        :confirmation => true, :on => :create,
                        :length       => { :within => 6..40 }
-
-  def has_password?(submitted_password)
-   encrypted_password == encrypt(submitted_password)
-  end
+                       
+  before_save :encrypt_password
   
-  #def self.authenticate(email, submitted_password)
-  #  user = find_by_email(email)
-  #  return nil  if user.nil?
-  #  return user if user.has_password?(submitted_password)
-  #end
   def self.authenticate(email, submitted_password)
     user = User.where(email: email).first
     user && user.has_password?(submitted_password) ? user : nil
@@ -52,14 +43,20 @@ class User
     user = id.present? ? User.find(id) : nil
     (user && user.salt == cookie_salt) ? user : nil
   end
-                  
-  before_save :encrypt_password
+  
+  def has_password?(submitted_password)
+   encrypted_password == encrypt(submitted_password)
+  end
   
   def feed
     Micropost.from_users_followed_by(self)
   end
-  
-#######################################################################################################
+
+#####################################################
+
+  field :following, :type => Array, :default => []
+  index :following
+
   def self.following_count(user)
     user = find(user.id)
     user.following.count
@@ -67,6 +64,14 @@ class User
 
   def followers_count
     followers_user_list.count
+  end
+  
+  def followers_user_list
+    User.where(:following => self.id)
+  end
+  
+  def following_user_list
+    User.any_in(:_id => following)
   end
   
   def followers
@@ -93,14 +98,8 @@ class User
     save :validation => false
   end
   
-  def followers_user_list
-    User.where(:following => self.id)
-  end
-  
-  def following_user_list
-    User.any_in(:_id => following)
-  end
-#######################################################################################################
+#####################################################
+
   private
     def encrypt_password
       self.salt = make_salt if new_record?
