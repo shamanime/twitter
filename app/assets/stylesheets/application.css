@@ -42,3 +42,11 @@ ul.users {
 form#new_micropost	{
 	margin-bottom: 50px;
 }
+
+.users li img	{
+	vertical-align: middle;
+}
+
+.users li	{
+	margin-bottom: 7px;
+}

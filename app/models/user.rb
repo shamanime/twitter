@@ -7,14 +7,15 @@ class User
   include Gravtastic
   is_gravtastic
   
-  paginates_per 15
-  
   field :name, :type => String
   field :email, :type => String
   index :email, unique: true
   field :encrypted_password, :type => String
   field :salt, :type => String
   field :admin, :type => Boolean, :default => false
+  
+  field :following, :type => Array, :default => []
+  index :following
   
   has_many :microposts, :dependent => :destroy
   
@@ -57,7 +58,48 @@ class User
   def feed
     microposts
   end
+  
+#######################################################################################################
+  def following_count
+    following.count
+  end
 
+  def followers_count
+    followers_user_list.count
+  end
+  
+  def followers
+    followers = []
+    User.where(:following => self.id).each do |user|
+      followers << user.id
+    end
+    followers
+  end
+  
+  def following?(followed)
+    User.where(:_id => self.id, :following => followed.id).count > 0
+  end
+  
+  def follow!(obj)
+    send :following=, [] if (following.nil?)
+    following << obj.id unless following.include?(obj.id)
+    save :validation => false
+  end
+  
+  def unfollow!(obj)
+    send :following=, [] if (following.nil?)
+    following.delete(obj.id) if following.include?(obj.id)
+    save :validation => false
+  end
+  
+  def followers_user_list
+    User.where(:following => self.id)
+  end
+  
+  def following_user_list
+    User.any_in(:_id => following)
+  end
+#######################################################################################################
   private
     def encrypt_password
       self.salt = make_salt if new_record?

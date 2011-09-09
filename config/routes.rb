@@ -3,7 +3,11 @@ Twitter::Application.routes.draw do
   match '/about',   :to => 'pages#about'
   match '/help',    :to => 'pages#help'
 
-  resources :users
+  resources :users do
+    member do
+      get :following, :followers, :follow, :unfollow
+    end
+  end
   match '/signup',  :to => 'users#new'
   
   resources :sessions, :only => [:new, :create, :destroy]

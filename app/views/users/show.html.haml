@@ -3,16 +3,20 @@
     %h1
       = gravatar_for @user
       = @user.name
+      - if current_user.following?(@user)
+        = render :partial => 'unfollow'
+      - else
+        = render :partial => 'follow' unless current_user == @user
     - unless @user.microposts.empty?
       = render @microposts
       = paginate @microposts
   .span4.columns
-    %p
-      %strong Name:
-      = @user.name
-    %p
-      %strong URL:
-      = link_to user_path(@user), @user
-    %p
-      %strong Microposts:
-      = @user.microposts.count
+    %strong Name:
+    = @user.name
+    %br/
+    %strong URL:
+    = link_to user_path(@user), @user
+    %br/
+    %strong Microposts:
+    = @user.microposts.count
+    = render 'shared/stats'

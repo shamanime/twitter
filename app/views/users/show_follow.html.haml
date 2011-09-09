@@ -1,0 +1,20 @@
+.row
+  .span12.columns
+    %h1= @title
+    - unless @users.empty?
+      %ul.users= render @users
+      = paginate @users
+  .span4.columns
+    %strong Name:
+    = @user.name
+    %br/
+    %strong URL:
+    = link_to user_path(@user), @user
+    %br/
+    %strong Microposts:
+    = @user.microposts.count
+    = render 'shared/stats'
+    - unless @users.empty?
+      - @users.each do |user|
+        = link_to gravatar_for(user, :size => 30), user
+= debug @users

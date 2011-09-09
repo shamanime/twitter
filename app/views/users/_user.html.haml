@@ -1,4 +1,4 @@
-- @users.each do |user|
+- for user in @users
   %li
     = gravatar_for user, :size => 30
     = link_to user.name, user

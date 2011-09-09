@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all.page params[:page]
+    @users = User.page(params[:page]).per(15)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -91,6 +91,32 @@ class UsersController < ApplicationController
       flash[:success] = "User destroyed."
       redirect_to users_path
     end
+  end
+  
+  def following
+    @title = "Following"
+    @user = User.find(params[:id])
+    @users = @user.following_user_list.page params[:page]
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "Followers"
+    @user = User.find(params[:id])
+    @users = @user.followers_user_list.page params[:page]
+    render 'show_follow'
+  end
+  
+  def follow
+    @user = User.find(params[:id])
+    current_user.follow!(@user)
+    redirect_to @user
+  end
+
+  def unfollow
+    @user = User.find(params[:id])
+    current_user.unfollow!(@user)
+    redirect_to @user
   end
   
   private  
