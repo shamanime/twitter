@@ -56,7 +56,7 @@ class User
   before_save :encrypt_password
   
   def feed
-    microposts
+    Micropost.from_users_followed_by(self)
   end
   
 #######################################################################################################

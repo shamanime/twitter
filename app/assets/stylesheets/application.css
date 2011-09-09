@@ -43,10 +43,16 @@ form#new_micropost	{
 	margin-bottom: 50px;
 }
 
-.users li img	{
+img.gravatar	{
 	vertical-align: middle;
 }
 
 .users li	{
 	margin-bottom: 7px;
+}
+
+.row.micropost	{
+	border-bottom: 1px solid #F0F0F0;
+	padding-bottom: 12px;
+	margin-bottom: 12px;
 }

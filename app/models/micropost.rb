@@ -12,4 +12,10 @@ class Micropost
             :length => { :maximum => 140 }
             
   default_scope desc(:created_at)
+  
+  def self.from_users_followed_by(user)
+    user_ids = user.following
+    user_ids << user.id
+    any_in(user_id: user_ids)
+  end
 end
