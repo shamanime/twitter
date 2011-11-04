@@ -1,10 +1,10 @@
 .row
-  .span12.columns
+  .span12
     %h1= @title
     - unless @users.empty?
       %ul.users= render @users
       = paginate @users
-  .span4.columns
+  .span4
     .well
       %p
         %strong Name:

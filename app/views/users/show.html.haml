@@ -1,19 +1,19 @@
 .row
-  .span12.columns
+  .span12
     %h1
       = gravatar_for @user
       = @user.name
     - if signed_in?
       .row
-        .span12.columns
+        .span12
           - if current_user.following?(@user)
-            = render :partial => 'unfollow'
+            %p= render :partial => 'unfollow'
           - else
-            = render :partial => 'follow' unless current_user == @user
+            %p= render :partial => 'follow' unless current_user == @user
     - unless @user.microposts.empty?
       = render @microposts
       = paginate @microposts
-  .span4.columns
+  .span4
     .well
       %p
         %strong Name:

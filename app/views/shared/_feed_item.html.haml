@@ -1,9 +1,9 @@
 .row
-  .span12.columns
+  .span12
     .row.micropost
-      .span1.columns
+      .span1
         .gravatar= link_to gravatar_for(feed_item.user), feed_item.user
-      .span10.columns
+      .span10
         .user= link_to feed_item.user.name, feed_item.user
         .content= feed_item.content
         .timestamp= "Posted #{time_ago_in_words(feed_item.created_at)} ago."

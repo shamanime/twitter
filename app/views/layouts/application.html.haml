@@ -9,7 +9,7 @@
     .topbar
       .topbar-inner
         .container
-          %h3= link_to "Compweek", root_path
+          %h3= link_to "Twister", root_path
           %ul.nav
             %li= link_to "Users", users_path if signed_in?
             %li= link_to "Help", help_path
@@ -17,7 +17,7 @@
             %li= link_to "Contact", contact_path
           %ul.nav.secondary-nav
             - if signed_in?
-              %li.dropdown
+              %li.dropdown{:"data-dropdown" => "dropdown"}
                 = link_to "Account", "#", :class => "dropdown-toggle"
                 %ul.dropdown-menu
                   %li= link_to "Profile", current_user
@@ -30,7 +30,7 @@
       .container
         - if flash
           - flash.each do |name, msg| 
-            .alert-message{:class => name}
+            .alert-message{:class => name, :"data-alert" => "alert"}
               = link_to "×", "#", :class => "close"
               %p
                 %strong Hey!

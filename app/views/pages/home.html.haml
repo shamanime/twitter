@@ -1,18 +1,18 @@
 - if signed_in?
   .row
-    .span12.columns
+    .span12
       %h1 What's up?
       = render 'shared/micropost_form'
       = render 'shared/feed'
-    .span4.columns
+    .span4
       .well
         = render 'shared/user_info'
         = render 'shared/stats'
 
 - else
   .row
-    .span16.columns
+    .span16
       %h1 Sample App
-      %p This is the home page for the Compweek sample application.
+      %p This is the home page for the Twister sample application.
       %br/
       = link_to "Sign up now!", signup_path, :class => "btn large primary"

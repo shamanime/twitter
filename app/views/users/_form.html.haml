@@ -1,5 +1,5 @@
 .row
-  .span16.columns
+  .span16
     = form_for @user do |f|
       -if @user.errors.any?
         .alert-message.block-message.error
@@ -12,9 +12,10 @@
       %fieldset
         %legend= @title
         - unless @user.new_record?
-          .span3.offset12.gravatar_thumb
-            %h6 User gravatar:
-            = gravatar_for @user, :size => 115
+          .row
+            .span3.offset12.gravatar_thumb
+              %h6 User gravatar:
+              = gravatar_for @user, :size => 115
         .clearfix
           = f.label :name
           .input= f.text_field :name
