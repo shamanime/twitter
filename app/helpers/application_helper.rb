@@ -1,6 +1,6 @@
 module ApplicationHelper
   def title
-    base_title = "Compweek Twitter App"
+    base_title = "Twister App"
     if @title.nil?
       base_title
     else

@@ -27,7 +27,7 @@ class UsersController < ApplicationController
 
     if @user.save
       sign_in @user
-      redirect_to @user, :flash => { :success =>  'Welcome to the Compweek App!' }
+      redirect_to @user, :flash => { :success =>  'Welcome to the Twister App!' }
     else
       @title = "Sign up"
       render action: "new"
